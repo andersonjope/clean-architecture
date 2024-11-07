@@ -1,10 +1,18 @@
 import { Sequelize } from "sequelize-typescript";
+import ProductModel from "../infrastructure/product/repository/sequelize/product.model";
+import CustomerModel from "../infrastructure/customer/repository/sequelize/customer.model";
 
-const sequelize = new Sequelize({
+export const sequelize = new Sequelize({
   dialect: "sqlite",
   storage: "memory",
   logging: false,
-  sync: { force: true },
+  models: [ProductModel, CustomerModel],
 });
 
-export default sequelize;
+export const setupDatabase = async () => {
+  await sequelize.sync({ force: true });
+};
+
+export const cleanupDatabase = async () => {
+  await sequelize.drop();
+};

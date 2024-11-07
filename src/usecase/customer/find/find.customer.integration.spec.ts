@@ -1,18 +1,16 @@
 import Customer from "../../../domain/customer/entity/customer";
 import Address from "../../../domain/customer/value-object/address";
-import CustomerModel from "../../../infrastructure/customer/repository/sequelize/customer.model";
 import CustomerRepository from "../../../infrastructure/customer/repository/sequelize/customer.repository";
 import FindCustomerUseCase from "./find.customer.usecase";
-import sequelize from "../../../database/database";
+import { setupDatabase, cleanupDatabase } from "../../../database/database";
 
 describe("Test find customer use case", () => {
-  beforeEach(async () => {
-    await sequelize.addModels([CustomerModel]);
-    await sequelize.sync();
+  beforeAll(async () => {
+    await setupDatabase();
   });
 
   afterAll(async () => {
-    await sequelize.close();
+    await cleanupDatabase();
   });
 
   it("should find a customer", async () => {

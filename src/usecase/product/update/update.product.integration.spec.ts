@@ -4,16 +4,15 @@ import UpdateProductUseCase from "./update.produtct.usecase";
 import ProductModel from "../../../infrastructure/product/repository/sequelize/product.model";
 import ProductRepository from "../../../infrastructure/product/repository/sequelize/product.repository";
 import Product from "../../../domain/product/entity/product";
-import sequelize from "../../../database/database";
+import { setupDatabase, cleanupDatabase } from "../../../database/database";
 
 describe("Unit test for product update use case", () => {
-  beforeEach(async () => {
-    await sequelize.addModels([ProductModel]);
-    await sequelize.sync();
+  beforeAll(async () => {
+    await setupDatabase();
   });
 
   afterAll(async () => {
-    await sequelize.close();
+    await cleanupDatabase();
   });
 
   it("should update a product", async () => {
