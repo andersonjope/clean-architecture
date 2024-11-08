@@ -11,3 +11,7 @@ npm i nodemon
 npm run dev
 
 npm i -D supertest
+
+npm i -S yup
+
+npm ci
