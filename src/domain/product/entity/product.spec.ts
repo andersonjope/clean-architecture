@@ -30,4 +30,26 @@ describe("Product unit tests", () => {
     product.changePrice(150);
     expect(product.price).toBe(150);
   });
+
+  it("should not create product to multiple errors", () => {
+    expect(() => {
+      const product = new Product("", "", -1);
+    }).toThrowError(
+      "product: Id is required, product: Name is required, product: Price must be greater than zero"
+    );
+  });
+
+  it("should not create product id and name empty ", () => {
+    expect(() => {
+      const product = new Product("", "", 100);
+    }).toThrowError("product: Id is required, product: Name is required");
+  });
+
+  it("should not create product name and price empty ", () => {
+    expect(() => {
+      const product = new Product("123", "", -1);
+    }).toThrowError(
+      "product: Name is required, product: Price must be greater than zero"
+    );
+  });
 });
